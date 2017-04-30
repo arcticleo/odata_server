@@ -19,9 +19,9 @@ class ODataController < ApplicationController
   rescue_from OData::ODataException, :with => :handle_exception
   rescue_from ActiveRecord::RecordNotFound, :with => :handle_exception
   
-  before_filter :extract_resource_path_and_query_string, :only => [:resource]
-  before_filter :parse_resource_path_and_query_string!,  :only => [:resource]
-  before_filter :set_request_format!,                    :only => [:resource]
+  before_action :extract_resource_path_and_query_string, :only => [:resource]
+  before_action :parse_resource_path_and_query_string!,  :only => [:resource]
+  before_action :set_request_format!,                    :only => [:resource]
   
   %w{service metadata resource}.each do |method_name|
     define_method(:"redirect_to_#{method_name}") do
